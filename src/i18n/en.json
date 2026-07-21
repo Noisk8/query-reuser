@@ -196,7 +196,7 @@
   "query-personajes-step-1-title": "Change the country",
   "query-personajes-step-1-description": "Replace the country of citizenship identifier with that of your interest.",
   "query-personajes-step-2-title": "Ensure public domain",
-  "query-personajes-step-2-description": "Add a death date filter to ensure people are in the public domain.",
+  "query-personajes-step-2-description": "Add a death date filter to ensure people's works are in the public domain.",
   "query-personajes-step-3-title": "Filter by occupation",
   "query-personajes-step-3-description": "Use wdt:P106 to restrict to a specific profession, such as writer (Q82955) or painter (Q33880)."
 }
