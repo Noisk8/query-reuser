@@ -178,7 +178,7 @@
   "query-personajes-step-1-title": "Cambiar el país",
   "query-personajes-step-1-description": "Reemplaza el identificador del país de ciudadanía por el de tu interés.",
   "query-personajes-step-2-title": "Garantizar dominio público",
-  "query-personajes-step-2-description": "Agrega un filtro por fecha de fallecimiento para asegurar que las personas están en dominio público.",
+  "query-personajes-step-2-description": "Agrega un filtro por fecha de fallecimiento para asegurar que las obras de estas personas están en dominio público.",
   "query-personajes-step-3-title": "Filtrar por ocupación",
   "query-personajes-step-3-description": "Usa wdt:P106 para restringir a una profesión específica, como escritor (Q82955) o pintor (Q33880)."
 }
