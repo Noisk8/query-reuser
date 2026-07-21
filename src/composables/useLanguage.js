@@ -2,7 +2,12 @@ import { ref } from "vue";
 import { useI18n } from "vue-banana-i18n";
 
 const STORAGE_KEY = "query-reuser-language";
-export const AVAILABLE_LOCALES = ["es", "en"];
+
+export const AVAILABLE_LOCALES = Object.freeze(
+  Object.keys(import.meta.glob("../i18n/*.json"))
+    .map((path) => path.match(/\/([^/]+)\.json$/)?.[1])
+    .filter((locale) => locale && locale !== "qqq")
+);
 
 const RTL_LANGUAGES = new Set([
   "ar", "arc", "dv", "fa", "ha", "he", "khw", "ks", "ku", "ps", "ur", "yi",
