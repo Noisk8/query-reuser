@@ -35,7 +35,7 @@ import LanguageSelector from "./LanguageSelector.vue";
 .app-header__brand {
   display: inline-flex;
   align-items: center;
-  gap: var(--spacing-100);
+  gap: 10px;
   color: var(--color-base);
   font-size: clamp(1.35rem, 2.5vw, 1.75rem);
   font-weight: var(--font-weight-bold);
