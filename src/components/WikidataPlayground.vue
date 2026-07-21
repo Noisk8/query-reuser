@@ -155,19 +155,26 @@ function formatValue(value) {
 
 <style scoped>
 .playground {
-  margin-top: var(--spacing-300);
+  max-width: 960px;
+  margin-top: var(--spacing-400);
+  padding: clamp(1.25rem, 3vw, 1.75rem);
+  border: 1px solid rgb(200 204 209 / 90%);
+  border-radius: 18px;
+  background: rgb(255 255 255 / 90%);
+  box-shadow: 0 10px 26px rgb(32 33 34 / 7%);
 }
 .playground__header {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: var(--spacing-100);
-  margin-bottom: var(--spacing-200);
+  gap: var(--spacing-150);
+  margin-bottom: var(--spacing-250);
 }
 .playground__title {
   margin: 0;
-  font-size: var(--font-size-large);
+  color: #172a3a;
+  font-size: clamp(1.2rem, 2vw, 1.45rem);
   font-weight: var(--font-weight-bold);
 }
 .playground__actions {
@@ -177,6 +184,7 @@ function formatValue(value) {
 }
 .playground__editor {
   width: 100%;
+  border-radius: 12px;
   font-family: var(--font-family-monospace);
   font-size: var(--font-size-small);
 }
@@ -208,13 +216,15 @@ function formatValue(value) {
 }
 .playground__results-title {
   margin: 0 0 var(--spacing-200);
+  color: #172a3a;
   font-size: var(--font-size-medium);
   font-weight: var(--font-weight-bold);
 }
 .playground__table-wrap {
   overflow-x: auto;
-  border: 1px solid var(--border-color-base);
-  border-radius: var(--border-radius-base);
+  border: 1px solid rgb(200 204 209 / 90%);
+  border-radius: 12px;
+  background: #ffffff;
 }
 .playground__table {
   width: 100%;

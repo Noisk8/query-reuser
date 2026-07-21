@@ -10,33 +10,6 @@
       {{ $i18n(query.i18nKey + '-desc') }}
     </p>
 
-    <div class="query-detail__meta">
-      <div class="query-detail__meta-item">
-        <span class="query-detail__meta-label">
-          {{ $i18n('result-' + query.resultType) }}
-        </span>
-      </div>
-      <div class="query-detail__meta-item">
-        <span class="query-detail__meta-label">
-          {{ $i18n('level-' + query.level) }}
-        </span>
-      </div>
-      <div class="query-detail__meta-item">
-        <span class="query-detail__meta-label">{{ $i18n('source') }}</span>
-      </div>
-    </div>
-
-    <cdx-field class="query-detail__field">
-      <template #label>{{ $i18n('select-country') }}</template>
-      <cdx-lookup
-        v-model:selected="selectedCountry"
-        v-model:input-value="countryInput"
-        :menu-items="countryMenuItems"
-        :placeholder="$i18n('select-country')"
-        :menu-config="{ showThumbnail: true, boldLabel: true }"
-      />
-    </cdx-field>
-
     <div class="query-detail__section">
       <h2 class="query-detail__section-title">
         {{ $i18n('detail-what-it-does') }}
@@ -46,33 +19,11 @@
 
     <div class="query-detail__section">
       <h2 class="query-detail__section-title">
-        {{ $i18n('detail-use-cases') }}
-      </h2>
-      <ul class="query-detail__list">
-        <li v-for="i in query.info.useCasesCount" :key="i">
-          {{ $i18n(query.i18nKey + '-use-case-' + i) }}
-        </li>
-      </ul>
-    </div>
-
-    <div class="query-detail__section">
-      <h2 class="query-detail__section-title">
         {{ $i18n('detail-prerequisites') }}
       </h2>
       <ul class="query-detail__list">
         <li v-for="i in query.info.prerequisitesCount" :key="i">
           {{ $i18n(query.i18nKey + '-prerequisite-' + i) }}
-        </li>
-      </ul>
-    </div>
-
-    <div class="query-detail__section">
-      <h2 class="query-detail__section-title">
-        {{ $i18n('detail-data-sources') }}
-      </h2>
-      <ul class="query-detail__list">
-        <li v-for="i in query.info.dataSourcesCount" :key="i">
-          {{ $i18n(query.i18nKey + '-data-source-' + i) }}
         </li>
       </ul>
     </div>
@@ -107,11 +58,9 @@
 <script setup>
 import { ref, computed } from "vue";
 import { useRoute } from "vue-router";
-import { CdxLookup, CdxField } from "@wikimedia/codex";
 import { useI18n } from "vue-banana-i18n";
 import { getQueryById, countries } from "../data/topics.js";
 import WikidataPlayground from "../components/WikidataPlayground.vue";
-import { useCountryLookup } from "../composables/useCountryLookup.js";
 import { getCountryName } from "../utils/localeNames.js";
 
 const route = useRoute();
@@ -123,8 +72,6 @@ const query = found?.query ?? null;
 
 const selectedCountry = ref(route.query.country || "Q298");
 
-const { countryInput, countryMenuItems } = useCountryLookup(selectedCountry);
-
 const displayTitle = computed(() => {
   const country = countries.find((c) => c.id === selectedCountry.value);
   const countryName = country ? getCountryName(country.code, i18n.locale) || country.name : "";
@@ -134,11 +81,13 @@ const displayTitle = computed(() => {
 
 <style scoped>
 .query-detail {
-  padding: var(--spacing-300) 0;
+  max-width: 960px;
+  padding: clamp(1.5rem, 4vw, 3rem) 0 var(--spacing-500);
 }
 .query-detail__back {
-  display: inline-block;
-  margin-bottom: var(--spacing-200);
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: var(--spacing-300);
   color: var(--color-progressive);
   text-decoration: none;
   font-size: var(--font-size-small);
@@ -148,92 +97,96 @@ const displayTitle = computed(() => {
   text-decoration: underline;
 }
 .query-detail__eyebrow {
-  margin-bottom: var(--spacing-100);
+  display: inline-block;
+  margin: 0 0 var(--spacing-100);
+  padding: 0.3rem 0.65rem;
+  border-radius: 999px;
+  background: rgb(0 102 153 / 10%);
   color: var(--color-progressive);
   font-size: var(--font-size-small);
   font-weight: var(--font-weight-bold);
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
 }
 .query-detail__title {
+  max-width: 820px;
   margin: 0 0 var(--spacing-150);
-  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  color: #172a3a;
+  font-size: clamp(2rem, 4vw, 3rem);
   font-weight: var(--font-weight-bold);
+  line-height: 1.12;
+  letter-spacing: -0.03em;
 }
 .query-detail__description {
   max-width: 760px;
-  color: var(--color-base);
-  font-size: var(--font-size-medium);
-  line-height: 1.65;
   margin: 0 0 var(--spacing-300);
-}
-.query-detail__meta {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--spacing-100);
-  margin-bottom: var(--spacing-300);
-}
-.query-detail__meta-item {
-  padding: var(--spacing-100);
-  background-color: var(--background-color-interactive-subtle);
-  border-radius: var(--border-radius-base);
-  text-align: center;
-}
-.query-detail__meta-label {
-  font-weight: var(--font-weight-bold);
-  font-size: var(--font-size-small);
-}
-.query-detail__field {
-  max-width: 360px;
-  margin-bottom: var(--spacing-300);
+  color: var(--color-subtle);
+  font-size: clamp(1rem, 1.5vw, 1.125rem);
+  line-height: 1.7;
 }
 .query-detail__section {
-  margin-bottom: var(--spacing-300);
-  max-width: 760px;
+  max-width: 820px;
+  margin-bottom: var(--spacing-250);
+  padding: clamp(1.25rem, 3vw, 1.75rem);
+  border: 1px solid rgb(200 204 209 / 85%);
+  border-radius: 16px;
+  background: rgb(255 255 255 / 84%);
+  box-shadow: 0 5px 16px rgb(32 33 34 / 5%);
 }
 .query-detail__section-title {
   margin: 0 0 var(--spacing-150);
-  font-size: var(--font-size-large);
+  color: #172a3a;
+  font-size: clamp(1.15rem, 2vw, 1.35rem);
   font-weight: var(--font-weight-bold);
 }
 .query-detail__text {
-  line-height: 1.65;
-  color: var(--color-base);
+  margin: 0;
+  color: var(--color-subtle);
+  line-height: 1.7;
 }
 .query-detail__list {
   margin: 0;
   padding-left: var(--spacing-250);
-  line-height: 1.65;
+  color: var(--color-subtle);
+  line-height: 1.7;
 }
 .query-detail__list li {
-  margin-bottom: var(--spacing-50);
+  margin-bottom: var(--spacing-100);
 }
 .query-detail__guide {
+  display: grid;
+  gap: var(--spacing-200);
   margin: 0;
-  padding-left: var(--spacing-250);
-  line-height: 1.65;
+  padding: 0;
+  list-style-position: inside;
 }
 .query-detail__guide-step {
-  margin-bottom: var(--spacing-200);
+  padding: var(--spacing-200);
+  border-radius: 12px;
+  background: #f7fafc;
 }
 .query-detail__guide-title {
-  margin: 0 0 var(--spacing-50);
+  display: inline;
+  margin: 0;
+  color: #172a3a;
   font-size: var(--font-size-medium);
   font-weight: var(--font-weight-bold);
 }
 .query-detail__guide-desc {
-  margin: 0 0 var(--spacing-100);
-  color: var(--color-base);
+  margin: var(--spacing-100) 0;
+  color: var(--color-subtle);
+  line-height: 1.65;
 }
 .query-detail__code {
-  background-color: var(--background-color-interactive-subtle);
-  border-left: 4px solid var(--color-progressive);
-  border-radius: var(--border-radius-base);
-  padding: var(--spacing-100) var(--spacing-150);
+  margin: 0;
+  padding: var(--spacing-150);
+  border: 1px solid rgb(0 102 153 / 18%);
+  border-radius: 10px;
+  background: #172a3a;
+  color: #e5f4fb;
   font-family: var(--font-family-monospace);
   font-size: var(--font-size-small);
   overflow-x: auto;
-  margin: 0;
 }
 .query-detail__empty {
   padding: var(--spacing-400) 0;

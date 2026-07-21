@@ -8,13 +8,15 @@
 
 <style scoped>
 .app-footer {
-  padding: var( --spacing-200 ) 0;
-  border-top: 1px solid var( --border-color-base );
-  color: var( --color-subtle );
-  font-size: var( --font-size-small );
+  margin-top: var(--spacing-400);
+  padding: var(--spacing-300) 0;
+  border-top: 1px solid rgb(200 204 209 / 80%);
+  background: rgb(255 255 255 / 60%);
+  color: var(--color-subtle);
+  font-size: var(--font-size-small);
 }
 .app-footer__inner {
-  width: min(100% - 32px, 1050px);
+  width: min(100% - 32px, 1120px);
   margin: 0 auto;
 }
 </style>

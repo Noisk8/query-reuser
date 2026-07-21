@@ -32,10 +32,19 @@
 }
 
 body {
+  min-width: 320px;
   margin: 0;
   font-family: var( --font-family-system );
-  background-color: var( --background-color-base );
+  background:
+    radial-gradient(circle at top right, rgb(51 153 102 / 10%), transparent 28rem),
+    linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
   color: var( --color-base );
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: rgb(0 102 153 / 20%);
 }
 
 a {

@@ -4,57 +4,18 @@
 
     <p class="query-card__description">{{ $i18n(query.i18nKey + '-desc') }}</p>
 
-    <div class="query-card__meta">
-      <div class="query-card__meta-item">
-        <span class="query-card__meta-label">{{ $i18n('result-' + query.resultType) }}</span>
-      </div>
-      <div class="query-card__meta-item">
-        <span class="query-card__meta-label">{{ $i18n('level-' + query.level) }}</span>
-      </div>
-      <div class="query-card__meta-item">
-        <span class="query-card__meta-label">{{ $i18n('source') }}</span>
-      </div>
-    </div>
-
     <div class="query-card__actions">
       <cdx-button
         weight="primary"
         @click="goToDetail"
       >
         {{ $i18n('btn-view-query-detail') }}
-      </cdx-button>
-      <cdx-button
-        weight="normal"
-        @click="showAdaptation = !showAdaptation"
-      >
-        {{ showAdaptation ? $i18n('btn-hide-adapt') : $i18n('btn-adapt') }}
-      </cdx-button>
-    </div>
-
-    <Transition name="fade">
-      <div
-        v-if="showAdaptation"
-        class="query-card__adaptation"
-      >
-        <strong>{{ $i18n('adapt-title') }}</strong>
-        <ul class="query-card__adaptation-list">
-          <li
-            v-for="i in query.adaptation.notesCount"
-            :key="i"
-          >
-            {{ $i18n(query.i18nKey + '-adapt-note-' + i) }}
-          </li>
-        </ul>
-        <p class="query-card__adaptation-line">
-          {{ $i18n('adapt-line-prefix') }} {{ $i18n(query.adaptation.changeLine) }}
-        </p>
-      </div>
-    </Transition>
+      </cdx-button>    </div>
   </article>
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { computed } from "vue";
 import { useRouter } from "vue-router";
 import { CdxButton } from "@wikimedia/codex";
 import { useI18n } from "vue-banana-i18n";
@@ -68,8 +29,6 @@ const props = defineProps({
   query: { type: Object, required: true },
   countryId: { type: String, required: true },
 });
-
-const showAdaptation = ref(false);
 
 const countryName = computed(() => {
   const country = countries.find((c) => c.id === props.countryId);
@@ -91,73 +50,49 @@ function goToDetail() {
 
 <style scoped>
 .query-card {
-  padding: var( --spacing-300 );
-  background-color: var( --background-color-base );
-  border: 1px solid var( --border-color-base );
-  border-radius: var( --border-radius-base );
-  margin-bottom: var( --spacing-300 );
+  position: relative;
+  overflow: hidden;
+  padding: clamp(1.25rem, 3vw, 1.75rem);
+  border: 1px solid rgb(200 204 209 / 90%);
+  border-radius: 16px;
+  background: rgb(255 255 255 / 94%);
+  box-shadow: 0 4px 14px rgb(32 33 34 / 5%);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.query-card + .query-card {
+  margin-top: var(--spacing-200);
+}
+.query-card::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(var(--wikidata-blue), var(--wikidata-green));
+  content: "";
+}
+.query-card:hover {
+  border-color: rgb(0 102 153 / 35%);
+  box-shadow: 0 14px 28px rgb(32 33 34 / 10%);
+  transform: translateY(-2px);
 }
 .query-card__title {
-  margin: 0 0 var( --spacing-150 );
-  font-size: var( --font-size-large );
-  font-weight: var( --font-weight-bold );
-  line-height: 1.25;
+  margin: 0 0 var(--spacing-150);
+  color: #172a3a;
+  font-size: clamp(1.15rem, 2vw, 1.4rem);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.3;
+  letter-spacing: -0.015em;
 }
 .query-card__description {
-  margin: 0 0 var( --spacing-200 );
-  max-width: 720px;
-  color: var( --color-base );
-  line-height: 1.65;
-}
-.query-card__meta {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var( --spacing-100 );
-  margin-bottom: var( --spacing-200 );
-}
-.query-card__meta-item {
-  padding: var( --spacing-100 );
-  background-color: var( --background-color-interactive-subtle );
-  border-radius: var( --border-radius-base );
-}
-.query-card__meta-label {
-  font-weight: var( --font-weight-bold );
-  font-size: var( --font-size-small );
+  max-width: 760px;
+  margin: 0 0 var(--spacing-250);
+  color: var(--color-subtle);
+  line-height: 1.7;
 }
 .query-card__actions {
   display: flex;
   flex-wrap: wrap;
-  gap: var( --spacing-100 );
-}
-.query-card__adaptation {
-  margin-top: var( --spacing-200 );
-  padding: var( --spacing-200 );
-  background-color: var( --background-color-interactive-subtle );
-  border-left: 4px solid var( --color-progressive );
-  border-radius: var( --border-radius-base );
-  line-height: 1.6;
-}
-.query-card__adaptation-list {
-  margin: var( --spacing-100 ) 0;
-  padding-left: var( --spacing-200 );
-}
-.query-card__adaptation-list li {
-  margin-bottom: var( --spacing-50 );
-  font-size: var( --font-size-small );
-  color: var( --color-base );
-}
-.query-card__adaptation-line {
-  margin-top: var( --spacing-100 );
-  font-family: var( --font-family-monospace );
-  font-size: var( --font-size-small );
-  background-color: var( --background-color-progressive-subtle );
-  padding: var( --spacing-100 );
-  border-radius: var( --border-radius-base );
-}
-.fade-enter-active, .fade-leave-active {
-  transition: opacity 0.25s ease;
-}
-.fade-enter-from, .fade-leave-to {
-  opacity: 0;
+  gap: var(--spacing-100);
 }
 </style>
