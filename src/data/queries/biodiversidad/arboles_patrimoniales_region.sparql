@@ -1,0 +1,16 @@
+SELECT DISTINCT ?tree ?treeLabel ?typeLabel ?countryLabel WHERE {
+  VALUES ?type {
+    wd:Q5739210   # árbol patrimonial
+    wd:Q811534    # árbol singular
+  }
+
+  ?tree wdt:P31 ?type;
+        wdt:P17 ?country.
+
+  ?country wdt:P30 wd:Q18. # CAMBIAR AQUÍ SEGÚN LA REGIÓN DEL MUNDO
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "es,en".
+  }
+}
+ORDER BY ?countryLabel ?treeLabel

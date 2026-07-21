@@ -81,7 +81,7 @@ const displayTitle = computed(() => {
 
 <style scoped>
 .query-detail {
-  max-width: 960px;
+  max-width: 1120px;
   padding: clamp(1.5rem, 4vw, 3rem) 0 var(--spacing-500);
 }
 .query-detail__back {
@@ -126,7 +126,7 @@ const displayTitle = computed(() => {
 }
 .query-detail__section {
   max-width: 820px;
-  margin-bottom: var(--spacing-250);
+  margin-bottom: 28px;
   padding: clamp(1.25rem, 3vw, 1.75rem);
   border: 1px solid rgb(200 204 209 / 85%);
   border-radius: 16px;
@@ -155,13 +155,13 @@ const displayTitle = computed(() => {
 }
 .query-detail__guide {
   display: grid;
-  gap: var(--spacing-200);
+  gap: 16px;
   margin: 0;
   padding: 0;
   list-style-position: inside;
 }
 .query-detail__guide-step {
-  padding: var(--spacing-200);
+  padding: 16px;
   border-radius: 12px;
   background: #f7fafc;
 }

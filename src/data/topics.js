@@ -1,11 +1,16 @@
-import monumentosMemoria from "./queries/memoria/monumentos-conmemorativos.sparql?raw";
-import lugaresMemoria from "./queries/memoria/lugares-memoria.sparql?raw";
-import especiesPeligro from "./queries/biodiversidad/especies-peligro.sparql?raw";
-import areasProtegidas from "./queries/biodiversidad/areas-protegidas.sparql?raw";
-import obrasArte from "./queries/dominio-publico/obras-arte.sparql?raw";
-import personajesHistoricos from "./queries/dominio-publico/personajes-historicos.sparql?raw";
+const queryTemplates = import.meta.glob("./queries/**/*.sparql", {
+  eager: true,
+  query: "?raw",
+  import: "default",
+});
 
-function buildQuery(template, countryId) {
+function buildQuery(queryFile, countryId) {
+  const template = queryTemplates[`./queries/${queryFile}.sparql`];
+
+  if (!template) {
+    throw new Error(`No se encontró la plantilla SPARQL: ${queryFile}`);
+  }
+
   return template.replace(/\$\{COUNTRY_ID\}/g, countryId);
 }
 
@@ -21,7 +26,7 @@ export const topics = [
         resultType: "map",
         level: "basic",
         tags: ["memoria", "monumentos", "historia", "cultura", "geografía"],
-        buildQuery: (countryId) => buildQuery(monumentosMemoria, countryId),
+        buildQuery: (countryId) => buildQuery("memoria/monumentos-conmemorativos", countryId),
         info: {
           useCasesCount: 3,
           prerequisitesCount: 2,
@@ -52,7 +57,7 @@ export const topics = [
         resultType: "list",
         level: "intermediate",
         tags: ["memoria", "lugares", "historia", "derechos humanos"],
-        buildQuery: (countryId) => buildQuery(lugaresMemoria, countryId),
+        buildQuery: (countryId) => buildQuery("memoria/lugares-memoria", countryId),
         info: {
           useCasesCount: 3,
           prerequisitesCount: 2,
@@ -90,7 +95,7 @@ export const topics = [
         resultType: "table",
         level: "basic",
         tags: ["biodiversidad", "especies", "conservación", "medio ambiente"],
-        buildQuery: (countryId) => buildQuery(especiesPeligro, countryId),
+        buildQuery: (countryId) => buildQuery("biodiversidad/especies-peligro", countryId),
         info: {
           useCasesCount: 3,
           prerequisitesCount: 2,
@@ -121,7 +126,7 @@ export const topics = [
         resultType: "map",
         level: "intermediate",
         tags: ["biodiversidad", "áreas protegidas", "conservación", "mapas"],
-        buildQuery: (countryId) => buildQuery(areasProtegidas, countryId),
+        buildQuery: (countryId) => buildQuery("biodiversidad/areas-protegidas", countryId),
         info: {
           useCasesCount: 3,
           prerequisitesCount: 2,
@@ -146,6 +151,48 @@ export const topics = [
           },
         ],
       },
+      {
+        id: "arboles-patrimoniales",
+        i18nKey: "query-arboles-patrimoniales",
+        resultType: "list",
+        level: "basic",
+        tags: ["biodiversidad", "árboles", "patrimonio natural", "Perú"],
+        buildQuery: (countryId) => buildQuery("biodiversidad/arboles_patrimoniales", countryId),
+        info: {
+          prerequisitesCount: 1,
+        },
+        adaptationGuide: [
+          {
+            step: 1,
+            codeSnippet: "wdt:P17 wd:Q419  # Cambia Q419 por tu país",
+          },
+          {
+            step: 2,
+            codeSnippet: "VALUES ?type { wd:Q5739210 wd:Q811534 }",
+          },
+        ],
+      },
+      {
+        id: "arboles-patrimoniales-region",
+        i18nKey: "query-arboles-patrimoniales-region",
+        resultType: "table",
+        level: "intermediate",
+        tags: ["biodiversidad", "árboles", "patrimonio natural", "regiones"],
+        buildQuery: (countryId) => buildQuery("biodiversidad/arboles_patrimoniales_region", countryId),
+        info: {
+          prerequisitesCount: 1,
+        },
+        adaptationGuide: [
+          {
+            step: 1,
+            codeSnippet: "wdt:P30 wd:Q18  # Cambia Q18 por la región deseada",
+          },
+          {
+            step: 2,
+            codeSnippet: "VALUES ?type { wd:Q5739210 wd:Q811534 }",
+          },
+        ],
+      }
     ],
   },
   {
@@ -159,7 +206,7 @@ export const topics = [
         resultType: "list",
         level: "basic",
         tags: ["dominio público", "arte", "cultura", "obras"],
-        buildQuery: (countryId) => buildQuery(obrasArte, countryId),
+        buildQuery: (countryId) => buildQuery("dominio-publico/obras-arte", countryId),
         info: {
           useCasesCount: 3,
           prerequisitesCount: 2,
@@ -190,7 +237,7 @@ export const topics = [
         resultType: "table",
         level: "intermediate",
         tags: ["dominio público", "personajes", "historia", "biografías"],
-        buildQuery: (countryId) => buildQuery(personajesHistoricos, countryId),
+        buildQuery: (countryId) => buildQuery("dominio-publico/personajes-historicos", countryId),
         info: {
           useCasesCount: 3,
           prerequisitesCount: 2,

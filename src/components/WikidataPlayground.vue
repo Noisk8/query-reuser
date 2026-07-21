@@ -55,7 +55,16 @@
           <tbody>
             <tr v-for="(row, i) in results" :key="i">
               <td v-for="col in columns" :key="col">
-                {{ formatValue(row[col]) }}
+                <a
+                  v-if="wikidataEntityUrl(row[col])"
+                  :href="wikidataEntityUrl(row[col])"
+                  class="playground__entity-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {{ formatValue(row[col]) }}
+                </a>
+                <span v-else>{{ formatValue(row[col]) }}</span>
               </td>
             </tr>
           </tbody>
@@ -140,6 +149,13 @@ function openInWikidata() {
   window.open(url, "_blank", "noopener,noreferrer");
 }
 
+function wikidataEntityUrl(value) {
+  if (typeof value !== "string") return "";
+
+  const match = value.match(/^https?:\/\/www\.wikidata\.org\/entity\/(Q\d+)$/);
+  return match ? `https://www.wikidata.org/wiki/${match[1]}` : "";
+}
+
 function formatValue(value) {
   if (value == null) return "";
   if (
@@ -155,9 +171,9 @@ function formatValue(value) {
 
 <style scoped>
 .playground {
-  max-width: 960px;
-  margin-top: var(--spacing-400);
-  padding: clamp(1.25rem, 3vw, 1.75rem);
+  max-width: 1120px;
+  margin-top: 32px;
+  padding: clamp(1rem, 2vw, 1.5rem);
   border: 1px solid rgb(200 204 209 / 90%);
   border-radius: 18px;
   background: rgb(255 255 255 / 90%);
@@ -228,22 +244,36 @@ function formatValue(value) {
 }
 .playground__table {
   width: 100%;
+  min-width: 900px;
   border-collapse: collapse;
   font-size: var(--font-size-small);
 }
 .playground__table th,
 .playground__table td {
-  padding: var(--spacing-100) var(--spacing-150);
+  padding: 12px 18px;
   border-bottom: 1px solid var(--border-color-base);
   text-align: left;
   vertical-align: top;
+  font-size: 0.95rem;
+  line-height: 1.5;
 }
 .playground__table th {
+  padding-top: 14px;
+  padding-bottom: 14px;
   background-color: var(--background-color-interactive-subtle);
   font-weight: var(--font-weight-bold);
   white-space: nowrap;
 }
 .playground__table tr:last-child td {
   border-bottom: none;
+}
+.playground__entity-link {
+  color: var(--color-progressive);
+  font-weight: var(--font-weight-bold);
+  text-decoration: none;
+}
+.playground__entity-link:hover {
+  color: var(--color-progressive-hover);
+  text-decoration: underline;
 }
 </style>
