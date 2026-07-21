@@ -8,7 +8,7 @@ SELECT DISTINCT ?tree ?treeLabel ?typeLabel ?countryLabel WHERE {
         wdt:P17 ?country.
 
   ?country wdt:P30 wd:Q18. # CAMBIAR AQUÍ SEGÚN LA REGIÓN DEL MUNDO
-
+ # cosas
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "es,en".
   }
