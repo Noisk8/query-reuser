@@ -1,0 +1,11 @@
+SELECT DISTINCT ?work ?workLabel ?image ?inception ?creatorLabel
+WHERE {
+  ?work wdt:P31/wdt:P279* wd:Q33231;
+        wdt:P170 wd:${COUNTRY_ID};
+        wdt:P18 ?image.
+  OPTIONAL { ?work wdt:P571 ?inception. }
+  OPTIONAL { ?work wdt:P170 ?creator. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "es,en". }
+}
+ORDER BY ?inception
+LIMIT 100

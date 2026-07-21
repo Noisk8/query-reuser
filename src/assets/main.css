@@ -1,0 +1,47 @@
+@import url( '@wikimedia/codex-design-tokens/theme-wikimedia-ui-root.css' );
+
+:root {
+  /* Wikidata brand palette */
+  --wikidata-blue: #006699;
+  --wikidata-blue-hover: #004466;
+  --wikidata-blue-active: #00334d;
+  --wikidata-green: #339966;
+  --wikidata-red: #990000;
+  --wikidata-yellow: #ffcc33;
+  --wikidata-gray: #484848;
+
+  /* Override Codex tokens to use Wikidata colors */
+  --color-base: #202122;
+  --color-subtle: #54595d;
+  --color-progressive: var( --wikidata-blue );
+  --color-progressive-hover: var( --wikidata-blue-hover );
+  --color-progressive-active: var( --wikidata-blue-active );
+  --color-destructive: var( --wikidata-red );
+  --color-success: var( --wikidata-green );
+  --color-warning: var( --wikidata-yellow );
+  --background-color-base: #ffffff;
+  --background-color-progressive: var( --wikidata-blue );
+  --background-color-progressive-hover: var( --wikidata-blue-hover );
+  --background-color-progressive-active: var( --wikidata-blue-active );
+  --border-color-base: #c8ccd1;
+  --border-color-progressive: var( --wikidata-blue );
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var( --font-family-system );
+  background-color: var( --background-color-base );
+  color: var( --color-base );
+}
+
+a {
+  color: var( --color-progressive );
+}
+
+a:hover {
+  color: var( --color-progressive-hover );
+}

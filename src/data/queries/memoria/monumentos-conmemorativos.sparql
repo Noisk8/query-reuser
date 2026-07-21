@@ -1,0 +1,10 @@
+SELECT DISTINCT ?monument ?monumentLabel ?coordinates ?image ?inception
+WHERE {
+  ?monument wdt:P31/wdt:P279* wd:Q500004;
+            wdt:P17 wd:${COUNTRY_ID};
+            wdt:P625 ?coordinates.
+  OPTIONAL { ?monument wdt:P18 ?image. }
+  OPTIONAL { ?monument wdt:P571 ?inception. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "es,en". }
+}
+ORDER BY ?monumentLabel

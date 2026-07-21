@@ -1,0 +1,10 @@
+SELECT DISTINCT ?area ?areaLabel ?coordinates ?category ?areaSize
+WHERE {
+  ?area wdt:P31/wdt:P279* wd:Q179049;
+        wdt:P17 wd:${COUNTRY_ID};
+        wdt:P625 ?coordinates.
+  OPTIONAL { ?area wdt:P1444 ?category. }
+  OPTIONAL { ?area wdt:P2046 ?areaSize. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "es,en". }
+}
+ORDER BY ?areaLabel
