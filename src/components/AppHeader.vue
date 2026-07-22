@@ -4,7 +4,12 @@
       <router-link to="/" class="app-header__brand">
         {{ $i18n('app-brand') }}
       </router-link>
-      <LanguageSelector />
+      <nav class="app-header__nav">
+        <router-link to="/contribuir" class="app-header__nav-link">
+          {{ $i18n('nav-contributions') }}
+        </router-link>
+        <LanguageSelector />
+      </nav>
     </div>
   </header>
 </template>
@@ -49,5 +54,20 @@ import LanguageSelector from "./LanguageSelector.vue";
   background: linear-gradient(135deg, var(--wikidata-blue), var(--wikidata-green));
   box-shadow: 0 0 0 5px rgb(0 102 153 / 10%);
   content: "";
+}
+.app-header__nav {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-200);
+}
+.app-header__nav-link {
+  color: var(--color-subtle);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.app-header__nav-link:hover {
+  color: var(--color-progressive);
 }
 </style>

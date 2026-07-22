@@ -23,6 +23,7 @@
       v-model="editableQuery"
       class="playground__editor"
       :rows="14"
+      dir="ltr"
     />
 
     <cdx-message

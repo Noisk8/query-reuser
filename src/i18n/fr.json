@@ -1,6 +1,8 @@
 {
   "@metadata": {
-    "authors": ["Query Explorer LATAM Team"],
+    "authors": [
+      "Query Explorer LATAM Team"
+    ],
     "last-updated": "2026-07-20",
     "locale": "fr",
     "message-documentation": "qqq"
@@ -73,7 +75,6 @@
   "playground-results": "$1 {{PLURAL:$1|résultat|résultats}}",
   "playground-open-wikidata": "Ouvrir dans Wikidata",
   "playground-error": "Une erreur s'est produite lors de l'exécution de la requête. Vérifiez le code SPARQL et réessayez.",
-
   "query-monumentos-what-it-does": "Récupère les monuments commémoratifs d'un pays enregistrés dans Wikidata, y compris les coordonnées géographiques, l'image et la date d'inauguration lorsqu'elles sont disponibles.",
   "query-monumentos-use-case-1": "Créer des cartes culturelles de la mémoire historique",
   "query-monumentos-use-case-2": "Identifier les sites de commémoration d'un territoire",
@@ -91,7 +92,6 @@
   "query-monumentos-step-2-description": "Vous pouvez remplacer Q500004 (monument commémoratif) par Q4989906 (monument) afin d'élargir les résultats.",
   "query-monumentos-step-3-title": "Filtrer par image",
   "query-monumentos-step-3-description": "Pour afficher uniquement les monuments avec une image disponible, ajoutez FILTER EXISTS.",
-
   "query-lugares-memoria-what-it-does": "Localise les lieux de mémoire historique dans un pays donné. Comprend les coordonnées et la description du site.",
   "query-lugares-memoria-use-case-1": "Cartographier les lieux de mémoire et les mémoriaux",
   "query-lugares-memoria-use-case-2": "Étudier les violations des droits humains documentées dans Wikidata",
@@ -109,7 +109,6 @@
   "query-lugares-memoria-step-2-description": "Vous pouvez remplacer Q18134653 (lieu de mémoire) par Q1322322 (mémorial) ou un autre type.",
   "query-lugares-memoria-step-3-title": "Filtrer par emplacement administratif",
   "query-lugares-memoria-step-3-description": "Utilisez wdt:P131 pour limiter les résultats à une région, une ville ou une communauté spécifique.",
-
   "query-especies-what-it-does": "Interroge les espèces menacées d'un pays, avec leur statut de conservation, leur image et leur population lorsqu'elles sont disponibles.",
   "query-especies-use-case-1": "Analyser le statut de conservation de la faune et de la flore",
   "query-especies-use-case-2": "Créer des rapports environnementaux par pays",
@@ -127,7 +126,6 @@
   "query-especies-step-2-description": "Modifiez VALUES pour inclure uniquement les statuts qui vous intéressent.",
   "query-especies-step-3-title": "Remplacer l'origine par la présence",
   "query-especies-step-3-description": "Si vous préférez les espèces présentes dans le pays plutôt que les espèces natives, remplacez P183 par P17.",
-
   "query-areas-bio-what-it-does": "Explore les aires naturelles protégées d'un pays, avec leurs coordonnées géographiques, leur catégorie de protection et leur superficie.",
   "query-areas-bio-use-case-1": "Cartographier les aires protégées d'un pays",
   "query-areas-bio-use-case-2": "Analyser la couverture des mesures de conservation",
@@ -145,7 +143,6 @@
   "query-areas-bio-step-2-description": "Remplacez Q179049 (aire protégée) par Q46169 (parc national) pour obtenir des résultats plus spécifiques.",
   "query-areas-bio-step-3-title": "Filtrer par superficie",
   "query-areas-bio-step-3-description": "Utilisez wdt:P2046 pour filtrer les zones plus grandes ou plus petites qu'une valeur donnée.",
-
   "query-obras-what-it-does": "Trouve les œuvres d'art d'un pays avec des images disponibles dans Wikidata. Comprend la date de création et l'auteur lorsqu'ils sont disponibles.",
   "query-obras-use-case-1": "Découvrir des œuvres d'art du domaine public",
   "query-obras-use-case-2": "Identifier des auteurs et créateurs d'un pays",
@@ -163,7 +160,6 @@
   "query-obras-step-2-description": "Vous pouvez remplacer Q33231 (œuvre d'art) par Q5 (personne) si vous recherchez des auteurs plutôt que des œuvres.",
   "query-obras-step-3-title": "Inclure les œuvres sans image",
   "query-obras-step-3-description": "Supprimez la ligne d'image ou rendez-la OPTIONAL pour inclure davantage de résultats.",
-
   "query-personajes-what-it-does": "Découvre les personnages historiques d'un pays avec des images dans Wikidata. Comprend la date de naissance, la date de décès et la profession.",
   "query-personajes-use-case-1": "Identifier des personnages historiques du domaine public",
   "query-personajes-use-case-2": "Créer des chronologies biographiques",
@@ -180,5 +176,29 @@
   "query-personajes-step-2-title": "Garantir le domaine public",
   "query-personajes-step-2-description": "Ajoutez un filtre de date de décès pour garantir que les personnes sont dans le domaine public.",
   "query-personajes-step-3-title": "Filtrer par profession",
-  "query-personajes-step-3-description": "Utilisez wdt:P106 pour limiter les résultats à une profession spécifique, comme écrivain (Q82955) ou peintre (Q33880)."
+  "query-personajes-step-3-description": "Utilisez wdt:P106 pour limiter les résultats à une profession spécifique, comme écrivain (Q82955) ou peintre (Q33880).",
+  "nav-contributions": "Contribuer",
+  "contributions-title": "Contribuez avec une requête",
+  "contributions-desc": "Query Reuser est un projet collaboratif. Si vous avez créé une requête qui pourrait être utile à d'autres personnes, vous êtes invité à la proposer sur la page de discussion de ce projet.",
+  "contributions-how-title": "Comment contribuer ?",
+  "contributions-step-1-title": "Préparez votre requête",
+  "contributions-step-1-desc": "Écrivez votre requête SPARQL en utilisant ${COUNTRY_ID} comme espace réservé pour le pays. Enregistrez le fichier .sparql dans le dossier correspondant.",
+  "contributions-step-2-title": "Créez les métadonnées",
+  "contributions-step-2-desc": "Créez un fichier .json avec le même nom contenant l'ID, la description, le niveau de difficulté et le guide d'adaptation.",
+  "contributions-step-3-title": "Ajoutez les traductions",
+  "contributions-step-3-desc": "Ajoutez les traductions dans es.json, en.json et qqq.json pour votre requête.",
+  "contributions-guide-title": "Modèle de requête",
+  "contributions-guide-desc": "Utilisez ce modèle comme point de départ pour votre requête SPARQL :",
+  "contributions-cta-button": "Aller sur Wikidata pour contribuer",
+  "contributions-cta-hint": "Vous serez redirigé vers la page de discussion de Wikidata pour créer une nouvelle section avec votre proposition.",
+  "contributions-how-desc": "Veuillez inclure les informations suivantes lors de votre proposition :",
+  "contributions-how-cta": "Vous pouvez proposer votre requête directement sur la page de discussion de Wikidata :",
+  "contributions-include-title": "Informations requises",
+  "contributions-include-1": "Un titre court et descriptif",
+  "contributions-include-2": "Une explication en langage clair de ce que la requête récupère",
+  "contributions-include-3": "Un lien vers la requête dans le Wikidata Query Service",
+  "contributions-include-4": "Le pays, la région ou la portée géographique pertinente",
+  "contributions-include-5": "Le thème ou domaine thématique",
+  "contributions-include-6": "Les valeurs que les utilisateurs doivent pouvoir modifier",
+  "contributions-include-7": "Toute information supplémentaire nécessaire pour comprendre ou réutiliser la requête"
 }

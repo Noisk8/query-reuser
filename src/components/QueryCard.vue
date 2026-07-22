@@ -4,6 +4,22 @@
 
     <p class="query-card__description">{{ $i18n(query.i18nKey + '-desc') }}</p>
 
+    <div v-if="query.adaptationGuide?.length" class="query-card__adapt-preview">
+      <h3 class="query-card__adapt-title">{{ $i18n('adapt-title') }}</h3>
+      <ul class="query-card__adapt-list">
+        <li
+          v-for="step in query.adaptationGuide.slice(0, 2)"
+          :key="step.step"
+          class="query-card__adapt-item"
+        >
+          <code class="query-card__adapt-code">{{ step.codeSnippet }}</code>
+        </li>
+      </ul>
+      <p v-if="query.adaptationGuide.length > 2" class="query-card__adapt-more">
+        +{{ query.adaptationGuide.length - 2 }} {{ $i18n('adapt-more-items') }}
+      </p>
+    </div>
+
     <div class="query-card__actions">
       <cdx-button
         weight="primary"
@@ -94,5 +110,46 @@ function goToDetail() {
   display: flex;
   flex-wrap: wrap;
   gap: var(--spacing-100);
+}
+.query-card__adapt-preview {
+  margin-bottom: var(--spacing-200);
+  padding: var(--spacing-150);
+  border: 1px solid rgb(0 102 153 / 15%);
+  border-radius: 10px;
+  background: rgb(0 102 153 / 5%);
+}
+.query-card__adapt-title {
+  margin: 0 0 var(--spacing-100);
+  color: #172a3a;
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+}
+.query-card__adapt-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.query-card__adapt-item {
+  margin-bottom: var(--spacing-75);
+}
+.query-card__adapt-item:last-child {
+  margin-bottom: 0;
+}
+.query-card__adapt-code {
+  display: block;
+  padding: var(--spacing-75);
+  border: 1px solid rgb(200 204 209 / 60%);
+  border-radius: 6px;
+  background: #ffffff;
+  color: #172a3a;
+  font-family: var(--font-family-monospace);
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+.query-card__adapt-more {
+  margin: var(--spacing-100) 0 0;
+  color: var(--color-progressive);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
 }
 </style>

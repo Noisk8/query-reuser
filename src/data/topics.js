@@ -4,6 +4,11 @@ const queryTemplates = import.meta.glob("./queries/**/*.sparql", {
   import: "default",
 });
 
+const queryMetaFiles = import.meta.glob("./queries/**/*.json", {
+  eager: true,
+  import: "default",
+});
+
 function buildQuery(queryFile, countryId) {
   const template = queryTemplates[`./queries/${queryFile}.sparql`];
 
@@ -23,7 +28,8 @@ function mergeAutoTopics(manualTopics) {
   for (const path of Object.keys(queryTemplates)) {
     const relative = path.replace("./queries/", "").replace(".sparql", "");
     const [topicSlug, queryFileName] = relative.split("/");
-    const queryId = queryFileName.replace(/_/g, "-");
+    const meta = queryMetaFiles[`./queries/${relative}.json`] || {};
+    const queryId = (meta.id || queryFileName).replace(/_/g, "-");
 
     if (registeredIds.has(queryId)) {
       continue;
@@ -43,13 +49,13 @@ function mergeAutoTopics(manualTopics) {
 
     topic.queries.push({
       id: queryId,
-      i18nKey: `query-${queryId}`,
-      resultType: "list",
-      level: "basic",
-      tags: [topicSlug],
+      i18nKey: meta.i18nKey || `query-${queryId}`,
+      resultType: meta.resultType || "list",
+      level: meta.level || "basic",
+      tags: meta.tags || [topicSlug],
       buildQuery: (countryId) => buildQuery(relative, countryId),
-      info: {},
-      adaptationGuide: [],
+      info: meta.info ?? {},
+      adaptationGuide: meta.adaptationGuide ?? [],
     });
 
     registeredIds.add(queryId);
@@ -133,68 +139,6 @@ const manualTopics = [
     name: "Biodiversidad",
     i18nKey: "topic-biodiversidad",
     queries: [
-      {
-        id: "especies-peligro",
-        i18nKey: "query-especies",
-        resultType: "table",
-        level: "basic",
-        tags: ["biodiversidad", "especies", "conservación", "medio ambiente"],
-        buildQuery: (countryId) => buildQuery("biodiversidad/especies-peligro", countryId),
-        info: {
-          useCasesCount: 3,
-          prerequisitesCount: 2,
-          dataSourcesCount: 1,
-        },
-        adaptation: {
-          notesCount: 3,
-          changeLine: "query-especies-adapt-line",
-        },
-        adaptationGuide: [
-          {
-            step: 1,
-            codeSnippet: "wdt:P183 wd:Q298  # Cambia Q298 por tu país",
-          },
-          {
-            step: 2,
-            codeSnippet: "VALUES ?conservationStatus { wd:Q219127 wd:Q219128 }  # En peligro crítico y en peligro",
-          },
-          {
-            step: 3,
-            codeSnippet: "wdt:P17 wd:Q298  # Presencia en el país",
-          },
-        ],
-      },
-      {
-        id: "areas-protegidas",
-        i18nKey: "query-areas-bio",
-        resultType: "map",
-        level: "intermediate",
-        tags: ["biodiversidad", "áreas protegidas", "conservación", "mapas"],
-        buildQuery: (countryId) => buildQuery("biodiversidad/areas-protegidas", countryId),
-        info: {
-          useCasesCount: 3,
-          prerequisitesCount: 2,
-          dataSourcesCount: 1,
-        },
-        adaptation: {
-          notesCount: 3,
-          changeLine: "query-areas-bio-adapt-line",
-        },
-        adaptationGuide: [
-          {
-            step: 1,
-            codeSnippet: "wdt:P17 wd:Q298  # Cambia Q298 por tu país",
-          },
-          {
-            step: 2,
-            codeSnippet: "wd:Q179049  # Opcional: cambiar a wd:Q46169",
-          },
-          {
-            step: 3,
-            codeSnippet: "?area wdt:P2046 ?areaSize .\nFILTER(?areaSize > 100)  # km²",
-          },
-        ],
-      },
       {
         id: "arboles-patrimoniales",
         i18nKey: "query-arboles-patrimoniales",

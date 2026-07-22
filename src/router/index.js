@@ -17,6 +17,11 @@ const routes = [
     name: "query-detail",
     component: () => import("../views/QueryDetailView.vue"),
   },
+  {
+    path: "/contribuir",
+    name: "contributions",
+    component: () => import("../views/ContributionsView.vue"),
+  },
 ];
 
 const router = createRouter({

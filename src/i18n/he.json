@@ -1,6 +1,8 @@
 {
   "@metadata": {
-    "authors": ["Query Explorer LATAM Team"],
+    "authors": [
+      "Query Explorer LATAM Team"
+    ],
     "last-updated": "2026-07-20",
     "locale": "he",
     "message-documentation": "qqq"
@@ -73,7 +75,6 @@
   "playground-results": "$1 {{PLURAL:$1|תוצאה|תוצאות}}",
   "playground-open-wikidata": "פתיחה בוויקינתונים",
   "playground-error": "אירעה שגיאה בעת הרצת השאילתה. נא לבדוק את קוד ה־SPARQL ולנסות שוב.",
-
   "query-monumentos-what-it-does": "מאחזרת אנדרטאות במדינה הרשומות בוויקינתונים, כולל נקודות ציון גאוגרפיות, תמונה ותאריך חנוכה אם הם זמינים.",
   "query-monumentos-use-case-1": "יצירת מפות תרבותיות של זיכרון היסטורי",
   "query-monumentos-use-case-2": "זיהוי אתרי הנצחה באזור מסוים",
@@ -91,7 +92,6 @@
   "query-monumentos-step-2-description": "אפשר להחליף את Q500004 (אנדרטת הנצחה) ב־Q4989906 (מונומנט) כדי להרחיב את התוצאות.",
   "query-monumentos-step-3-title": "סינון לפי תמונה",
   "query-monumentos-step-3-description": "כדי להציג רק אנדרטאות שיש להן תמונה, הוסיפו FILTER EXISTS.",
-
   "query-lugares-memoria-what-it-does": "מאתרת אתרי זיכרון היסטוריים במדינה מסוימת. כולל קואורדינטות ותיאור האתר.",
   "query-lugares-memoria-use-case-1": "מיפוי אתרי זיכרון ואתרי הנצחה",
   "query-lugares-memoria-use-case-2": "לחקור הפרות זכויות אדם המתועדות בוויקינתונים",
@@ -109,7 +109,6 @@
   "query-lugares-memoria-step-2-description": "אפשר להחליף את Q18134653 (אתר זיכרון) ב־Q1322322 (אתר הנצחה) או בסוג אחר.",
   "query-lugares-memoria-step-3-title": "סינון לפי מיקום מנהלי",
   "query-lugares-memoria-step-3-description": "יש להשתמש ב־wdt:P131 כדי להגביל את התוצאות לאזור, עיר או יישוב מסוימים.",
-
   "query-especies-what-it-does": "מאחזרת מינים בסכנת הכחדה במדינה, כולל מצב השימור, תמונה וגודל האוכלוסייה אם הם זמינים.",
   "query-especies-use-case-1": "ניתוח מצב השימור של בעלי חיים וצמחים",
   "query-especies-use-case-2": "יצירת דוח\"ות סביבתיים לפי מדינה",
@@ -127,7 +126,6 @@
   "query-especies-step-2-description": "יש לשנות את VALUES כך שיכללו רק את מצבי השימור שמעניינים אותך.",
   "query-especies-step-3-title": "שינוי מארץ מוצא לנוכחות",
   "query-especies-step-3-description": "אם מעניינים אותך מינים שנמצאים במדינה ולא רק מינים שילידיים בה, יש להחליף את P183 ב־P17.",
-
   "query-areas-bio-what-it-does": "מאחזרת אזורים טבעיים מוגנים במדינה, כולל נקודות ציון גאוגרפיות, קטגוריית ההגנה והשטח.",
   "query-areas-bio-use-case-1": "יצירת מפות של אזורים מוגנים במדינה",
   "query-areas-bio-use-case-2": "ניתוח היקף השימור",
@@ -145,7 +143,6 @@
   "query-areas-bio-step-2-description": "החליפו את Q179049 (אזור מוגן) ב־Q46169 (פארק לאומי) לקבלת תוצאות ממוקדות יותר.",
   "query-areas-bio-step-3-title": "סינון לפי גודל",
   "query-areas-bio-step-3-description": "יש להשתמש ב־wdt:P2046 כדי לסנן אזורים שגדולים יותר או קטנים יותר מהערך הנתון.",
-
   "query-obras-what-it-does": "מאחזרת יצירות אמנות ממדינה שיש להן תמונות בוויקינתונים. כוללת את תאריך היצירה ואת היוצר, אם הם זמינים.",
   "query-obras-use-case-1": "גילוי יצירות אמנות בנחלת הכלל",
   "query-obras-use-case-2": "זיהוי יוצרים ואמנים ממדינה מסוימת",
@@ -163,7 +160,6 @@
   "query-obras-step-2-description": "אפשר להחליף את Q33231 (יצירת אמנות) ב־Q5 (אדם) אם מעניינים אותך יוצרים ולא יצירות.",
   "query-obras-step-3-title": "הכללת יצירות ללא תמונה",
   "query-obras-step-3-description": "יש להסיר את שורת התמונה או להפוך אותה ל־OPTIONAL כדי לכלול יותר תוצאות.",
-
   "query-personajes-what-it-does": "מאחזרת דמויות היסטוריות ממדינה שיש להן תמונות בוויקינתונים. כוללת את תאריך הלידה, תאריך הפטירה והמקצוע.",
   "query-personajes-use-case-1": "זיהוי דמויות היסטוריות שנמצאות בנחלת הכלל",
   "query-personajes-use-case-2": "יצירת צירי זמן ביוגרפיים",
@@ -180,5 +176,29 @@
   "query-personajes-step-2-title": "הבטחת מצב של נחלת הכלל",
   "query-personajes-step-2-description": "יש להוסיף מסנן לפי תאריך הפטירה כדי להבטיח שהיצירות של האנשים נמצאים בנחלת הכלל.",
   "query-personajes-step-3-title": "סינון לפי מקצוע",
-  "query-personajes-step-3-description": "יש להשתמש ב־wdt:P106 כדי להגביל את התוצאות למקצוע מסוים, כגון סופר (Q82955) או צייר (Q33880)."
+  "query-personajes-step-3-description": "יש להשתמש ב־wdt:P106 כדי להגביל את התוצאות למקצוע מסוים, כגון סופר (Q82955) או צייר (Q33880).",
+  "nav-contributions": "לתרום",
+  "contributions-title": "תרמו שאילתה",
+  "contributions-desc": "Query Reuser הוא פרויקט שיתופי. אם יצרתם שאילתה שיכולה להיות שימושית לאחרים, אתם מוזמנים להציע אותה בדף הדיבור של פרויקט זה.",
+  "contributions-how-title": "כיצד לתרום?",
+  "contributions-step-1-title": "הכינו את השאילתה שלכם",
+  "contributions-step-1-desc": "כתבו את שאילתת ה-SPARQL שלכם באמצעות ${COUNTRY_ID} כמציין מקום עבור המדינה. שמרו את ה-.sparql בתיקייה המתאימה.",
+  "contributions-step-2-title": "צרו מטא-נתונים",
+  "contributions-step-2-desc": "צרו קובץ .json עם אותו שם המכיל את המזהה, התיאור, רמת הקושי ומדריך ההתאמה.",
+  "contributions-step-3-title": "הוסיפו תרגומים",
+  "contributions-step-3-desc": "הוסיפו תרגומים ב-es.json, en.json ו-qqq.json עבור השאילתה שלכם.",
+  "contributions-guide-title": "תבנית שאילתה",
+  "contributions-guide-desc": " השתמשו בתבנית זו כנקודת מוצא לשאילתת ה-SPARQL שלכם:",
+  "contributions-cta-button": "לכו לוויקidata כדי לתרום",
+  "contributions-cta-hint": "תופנו לדף הדיבור של ויקidata כדי ליצור מקטע חדש עם ההצעה שלכם.",
+  "contributions-how-desc": "אנא כללו את המידע הבא בעת הצעת השאילתה שלכם:",
+  "contributions-how-cta": "תוכלו להציע את השאילתה שלכם ישירות בדף הדיבור של ויקidata:",
+  "contributions-include-title": "מידע נדרש",
+  "contributions-include-1": "כותרת קצרה ומתארת",
+  "contributions-include-2": "הסבר בשפה פשוטה למה השאילתה מחזירה",
+  "contributions-include-3": "קישור לשאילתה ב-Wikidata Query Service",
+  "contributions-include-4": "המדינה, האזור או הטווח הגיאוגרפי הרלוונטי",
+  "contributions-include-5": "הנושא או התחום הנושאי",
+  "contributions-include-6": "הערכים שהמשתמשים צריכים להיות מסוגלים לערוך",
+  "contributions-include-7": "כל מידע נוסף הדרוש להבנה או שימוש מחדש בשאילתה"
 }

@@ -1,0 +1,24 @@
+{
+  "id": "especies-endemicas",
+  "i18nKey": "query-especies-endemicas",
+  "resultType": "table",
+  "level": "intermediate",
+  "tags": ["biodiversidad", "especies", "endémicas", "conservación"],
+  "info": {
+    "prerequisitesCount": 2
+  },
+  "adaptationGuide": [
+    {
+      "step": 1,
+      "codeSnippet": "VALUES ?country { wd:Q419 }  # Cambia Q419 por tu país"
+    },
+    {
+      "step": 2,
+      "codeSnippet": "VALUES ?vertebrateGroup { wd:Q5113 }  # Cambia Q5193 por otro grupo (Q8072=Reptiles, Q7740=Anfibios)"
+    },
+    {
+      "step": 3,
+      "codeSnippet": "FILTER(?status != wd:Q211005)  # Cambia Q211005 para excluir otro estado de conservación"
+    }
+  ]
+}

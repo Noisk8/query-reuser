@@ -1,0 +1,20 @@
+{
+  "id": "falsos-positivos",
+  "i18nKey": "query-falsos-positivos",
+  "resultType": "table",
+  "level": "advanced",
+  "tags": ["memoria", "derechos humanos", "Colombia", "conflicto armado"],
+  "info": {
+    "prerequisitesCount": 2
+  },
+  "adaptationGuide": [
+    {
+      "step": 1,
+      "codeSnippet": "wdt:P793 wd:Q779179  # Cambia Q779179 por otro evento significativo"
+    },
+    {
+      "step": 2,
+      "codeSnippet": "wd:Q130183  # Cambia Q130183 por otra región administrativa"
+    }
+  ]
+}

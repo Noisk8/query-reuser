@@ -1,0 +1,30 @@
+SELECT DISTINCT
+  ?species
+  ?speciesLabel
+  ?scientificName
+  ?statusLabel
+  ?vertebrateGroupLabel
+  ?countryLabel
+WHERE {
+
+  # ========= CAMBIAR SOLO ESTOS DOS QID =========
+
+  VALUES ?country { wd:Q419 }            # País
+
+  VALUES ?vertebrateGroup { wd:Q5113 }   # Grupo (Aves)
+
+  # =============================================
+
+  ?species wdt:P225 ?scientificName;
+           wdt:P141 ?status;
+           wdt:P171* ?vertebrateGroup;
+           wdt:P183 ?country.
+
+  # Excluir especies en "Preocupación menor"
+  FILTER(?status != wd:Q211005)
+
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "es,en".
+  }
+}
+ORDER BY ?statusLabel ?scientificName

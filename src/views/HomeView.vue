@@ -51,6 +51,7 @@
 <script setup>
 import { computed } from "vue";
 import { CdxSelect, CdxLookup, CdxField } from "@wikimedia/codex";
+import { useI18n } from "vue-banana-i18n";
 import HeroSection from "../components/HeroSection.vue";
 import QueryCard from "../components/QueryCard.vue";
 import { topics } from "../data/topics.js";
@@ -61,9 +62,11 @@ const { selectedCountry, selectedTopicSlug, filteredQueries } = useQuerySearch()
 
 const { countryInput, countryMenuItems } = useCountryLookup(selectedCountry);
 
+const i18n = useI18n();
+
 const topicMenuItems = computed(() =>
   topics.map((t) => ({
-    label: t.name,
+    label: i18n.i18n(t.i18nKey),
     value: t.slug,
   }))
 );

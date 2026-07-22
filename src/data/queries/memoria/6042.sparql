@@ -1,0 +1,164 @@
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX ps: <http://www.wikidata.org/prop/statement/>
+PREFIX psv: <http://www.wikidata.org/prop/statement/value/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX schema: <http://schema.org/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT
+  ?person
+  ?personLabel
+  ?birthRaw
+  ?fecha_de_nacimiento
+  ?deathRaw
+  ?disappearanceRaw
+  ?pointInTimeRaw
+  ?fecha_de_muerte
+  ?ano_de_muerte
+  ?lugarMuerteLabel
+  ?victimarioLabel
+  ?lugar_significativoLabel
+  ?imageUrl
+  ?edad
+  ?descripcion
+  ?regionAmazonica
+WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "es,en". }
+
+  # Personas asociadas al evento significativo "falsos positivos en Colombia"
+  ?person wdt:P793 wd:Q779179 .
+  ?person wdt:P31 wd:Q5 .  # humanos
+
+  # Lugar significativo (P7153)
+  OPTIONAL { ?person wdt:P7153 ?lugar_significativo . }
+
+  # Detectar si pertenece a la Región Amazónica (Q130183)
+  OPTIONAL {
+    ?person wdt:P7153 ?amazonPlace .
+    ?amazonPlace wdt:P131+ wd:Q130183 .
+    BIND("Región Amazónica" AS ?regionAmazonica)
+  }
+
+  # Asesinado por (P157)
+  OPTIONAL { ?person wdt:P157 ?victimario . }
+
+  # Fecha de nacimiento (P569)
+  OPTIONAL {
+    ?person p:P569 ?birthStmt .
+    ?birthStmt ps:P569 ?birthRaw .
+    OPTIONAL {
+      ?birthStmt psv:P569 ?birthValueNode .
+      ?birthValueNode wikibase:timePrecision ?birthPrecision .
+    }
+    BIND(
+      IF(BOUND(?birthPrecision),
+        IF(?birthPrecision = 9,
+          STR(YEAR(?birthRaw)),
+          IF(?birthPrecision = 10,
+            CONCAT(STR(MONTH(?birthRaw)),"/",STR(YEAR(?birthRaw))),
+            CONCAT(STR(DAY(?birthRaw)),"/",STR(MONTH(?birthRaw)),"/",STR(YEAR(?birthRaw)))
+          )
+        ),
+        CONCAT(STR(DAY(?birthRaw)),"/",STR(MONTH(?birthRaw)),"/",STR(YEAR(?birthRaw)))
+      ) AS ?fecha_de_nacimiento
+    )
+  }
+
+  # Fecha de muerte (P570)
+  OPTIONAL {
+    ?person p:P570 ?deathStmt .
+    ?deathStmt ps:P570 ?deathRaw .
+    OPTIONAL {
+      ?deathStmt psv:P570 ?deathValueNode .
+      ?deathValueNode wikibase:timePrecision ?deathPrecision .
+    }
+
+    # Formato robusto para la fecha de muerte
+    BIND(
+      IF(BOUND(?deathPrecision),
+        IF(?deathPrecision = 9,
+          STR(YEAR(?deathRaw)),
+          IF(?deathPrecision = 10,
+            CONCAT(STR(MONTH(?deathRaw)),"/",STR(YEAR(?deathRaw))),
+            CONCAT(STR(DAY(?deathRaw)),"/",STR(MONTH(?deathRaw)),"/",STR(YEAR(?deathRaw)))
+          )
+        ),
+        CONCAT(STR(DAY(?deathRaw)),"/",STR(MONTH(?deathRaw)),"/",STR(YEAR(?deathRaw)))
+      ) AS ?fecha_de_muerte
+    )
+
+    # Año de muerte
+    BIND(
+      IF(BOUND(?deathPrecision),
+        IF(?deathPrecision = 9,
+          STR(YEAR(?deathRaw)),
+          IF(?deathPrecision = 10,
+            CONCAT(STR(MONTH(?deathRaw)),"/",STR(YEAR(?deathRaw))),
+            CONCAT(STR(DAY(?deathRaw)),"/",STR(MONTH(?deathRaw)),"/",STR(YEAR(?deathRaw)))
+          )
+        ),
+        CONCAT(STR(DAY(?deathRaw)),"/",STR(MONTH(?deathRaw)),"/",STR(YEAR(?deathRaw)))
+      ) AS ?ano_de_muerte
+    )
+  }
+
+  # Fallback: Fecha de desaparición (P746)
+  OPTIONAL { ?person wdt:P746 ?disappearanceRaw . }
+
+  # Fallback: Momento en el tiempo (P585)
+  OPTIONAL { ?person wdt:P585 ?pointInTimeRaw . }
+
+  # Lugar de muerte (P20) - Fallback si no hay lugar significativo
+  OPTIONAL {
+    ?person wdt:P20 ?lugarMuerte .
+    ?lugarMuerte rdfs:label ?lugarMuerteLabel .
+    FILTER(LANG(?lugarMuerteLabel) = "es")
+  }
+
+  # Imagen principal (P18)
+  OPTIONAL { ?person wdt:P18 ?imagen . }
+
+  # Miniaturas desde Wikipedia / Commons (Fallback de imagen)
+  OPTIONAL {
+    ?article schema:about ?person ;
+             schema:isPartOf <https://es.wikipedia.org/> ;
+             schema:thumbnailUrl ?miniaturaEs .
+  }
+  OPTIONAL {
+    ?articleEn schema:about ?person ;
+               schema:isPartOf <https://en.wikipedia.org/> ;
+               schema:thumbnailUrl ?miniaturaEn .
+  }
+  OPTIONAL {
+    ?commonsArticle schema:about ?person ;
+                    schema:isPartOf <https://commons.wikimedia.org/> ;
+                    schema:thumbnailUrl ?miniaturaCommons .
+  }
+
+  # Escoger una sola URL de imagen
+  BIND(COALESCE(?imagen, ?miniaturaEs, ?miniaturaEn, ?miniaturaCommons) AS ?imageUrl)
+
+  # Edad ajustada
+  OPTIONAL {
+    ?person wdt:P569 ?birthRaw2 .
+    ?person wdt:P570 ?deathRaw2 .
+    BIND(
+      YEAR(?deathRaw2) - YEAR(?birthRaw2)
+      - IF(
+          (MONTH(?deathRaw2) < MONTH(?birthRaw2)) ||
+          (MONTH(?deathRaw2) = MONTH(?birthRaw2) && DAY(?deathRaw2) < DAY(?birthRaw2)),
+          1, 0
+        )
+      AS ?edad
+    )
+  }
+
+  # Descripción corta
+  OPTIONAL {
+    ?person schema:description ?descripcion .
+    FILTER(LANG(?descripcion) = "es")
+  }
+}
+ORDER BY ?deathRaw
