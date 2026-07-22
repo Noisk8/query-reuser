@@ -93,7 +93,7 @@ const manualTopics = [
           },
           {
             step: 2,
-            codeSnippet: "wd:Q500004  # Opcional: cambiar a wd:Q4989906",
+            codeSnippet: "wd:Q4989906",
           },
           {
             step: 3,
