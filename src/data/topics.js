@@ -14,7 +14,51 @@ function buildQuery(queryFile, countryId) {
   return template.replace(/\$\{COUNTRY_ID\}/g, countryId);
 }
 
-export const topics = [
+function mergeAutoTopics(manualTopics) {
+  const topicsBySlug = new Map(manualTopics.map((t) => [t.slug, t]));
+  const registeredIds = new Set(
+    manualTopics.flatMap((t) => t.queries.map((q) => q.id.replace(/_/g, "-")))
+  );
+
+  for (const path of Object.keys(queryTemplates)) {
+    const relative = path.replace("./queries/", "").replace(".sparql", "");
+    const [topicSlug, queryFileName] = relative.split("/");
+    const queryId = queryFileName.replace(/_/g, "-");
+
+    if (registeredIds.has(queryId)) {
+      continue;
+    }
+
+    let topic = topicsBySlug.get(topicSlug);
+    if (!topic) {
+      topic = {
+        slug: topicSlug,
+        name: topicSlug.charAt(0).toUpperCase() + topicSlug.slice(1),
+        i18nKey: `topic-${topicSlug}`,
+        queries: [],
+      };
+      topicsBySlug.set(topicSlug, topic);
+      manualTopics.push(topic);
+    }
+
+    topic.queries.push({
+      id: queryId,
+      i18nKey: `query-${queryId}`,
+      resultType: "list",
+      level: "basic",
+      tags: [topicSlug],
+      buildQuery: (countryId) => buildQuery(relative, countryId),
+      info: {},
+      adaptationGuide: [],
+    });
+
+    registeredIds.add(queryId);
+  }
+
+  return manualTopics;
+}
+
+const manualTopics = [
   {
     slug: "memoria",
     name: "Memoria",
@@ -265,6 +309,8 @@ export const topics = [
     ],
   },
 ];
+
+export const topics = mergeAutoTopics(manualTopics);
 
 export function getTopicBySlug(slug) {
   return topics.find((t) => t.slug === slug);

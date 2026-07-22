@@ -17,7 +17,7 @@
       <p class="query-detail__text">{{ $i18n(query.i18nKey + '-what-it-does') }}</p>
     </div>
 
-    <div class="query-detail__section">
+    <div v-if="query.info?.prerequisitesCount" class="query-detail__section">
       <h2 class="query-detail__section-title">
         {{ $i18n('detail-prerequisites') }}
       </h2>
@@ -28,7 +28,7 @@
       </ul>
     </div>
 
-    <div class="query-detail__section">
+    <div v-if="query.adaptationGuide?.length" class="query-detail__section">
       <h2 class="query-detail__section-title">
         {{ $i18n('detail-adaptation-guide') }}
       </h2>
