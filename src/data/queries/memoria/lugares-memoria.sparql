@@ -1,6 +1,6 @@
 SELECT DISTINCT ?site ?siteLabel ?coordinates ?description
 WHERE {
-  ?site wdt:P31/wdt:P279* wd:Q18134653;
+  ?site wdt:P31/wdt:P279* wd:Q1354775;
         wdt:P17 wd:${COUNTRY_ID};
         wdt:P625 ?coordinates.
   OPTIONAL { ?site schema:description ?description. FILTER(LANG(?description) = "es") }
